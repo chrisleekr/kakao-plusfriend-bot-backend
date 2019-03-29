@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+    mysql:
+        container_name: mysql
+        image: mysql:5.6
+        restart: always
+        networks:
+            - internal
+        volumes:
+            - ./mysql-files/conf.d:/etc/mysql/conf.d
+            - ./mysql-files/sql:/docker-entrypoint-initdb.d
+            - mysql_data:/var/lib/mysql
+        ports:
+            - 3307:3306
+        environment:
+            - MYSQL_HOST=mysql
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=kakaobot
+            - MYSQL_USERNAME=root
+            - MYSQL_PASSWORD=root
+    slim:
+        container_name: slim
+        build:
+            context: .
+        networks:
+            - internal
+        ports:
+            - 80:80
+        volumes:
+            - .:/var/www/html
+        environment:
+            - DOCKER=true
+
+networks:
+    internal:
+        driver: bridge
+
+volumes:
+    mysql_data:

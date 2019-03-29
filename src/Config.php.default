@@ -1,0 +1,6 @@
+<?php
+
+define('MYSQL_HOST', 'mysql');
+define('MYSQL_DATABASE', 'kakaobot');
+define('MYSQL_USERNAME', 'root');
+define('MYSQL_PASSWORD', 'root');
